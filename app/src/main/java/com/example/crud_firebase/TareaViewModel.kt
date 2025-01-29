@@ -48,4 +48,15 @@ class TareaViewModel : ViewModel() {
         }
     }
 
+    fun actualizarTarea(tarea: Tarea) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                db.collection("tareas").document(tarea.id).update(tarea.toMap()).await()
+                _listaTareas.postValue(_listaTareas.value?.map { if (it.id == tarea.id) tarea else it })
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
 }
