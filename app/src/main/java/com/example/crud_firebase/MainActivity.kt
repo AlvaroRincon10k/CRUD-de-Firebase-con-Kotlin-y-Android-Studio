@@ -1,11 +1,70 @@
 package com.example.crud_firebase
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.crud_firebase.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var adapter: TareaAdapter
+    private lateinit var viewModel: TareaViewModel
+
+    var tareaEdit = Tarea()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        viewModel = ViewModelProvider(this)[TareaViewModel::class.java]
+
+        viewModel.listaTarea.observe(this) { tareas ->
+            setupRecyclerView(tareas)
+        }
+
+        binding.btnAgregarTarea.setOnClickListener {
+            val tarea = Tarea(
+                titulo = binding.etTitulo.text.toString(),
+                descripcion = binding.etDescripcion.text.toString()
+            )
+
+            viewModel.agregarTarea(tarea)
+
+            binding.etTitulo.setText("")
+            binding.etDescripcion.setText("")
+        }
+
+        binding.btnActualizarTarea.setOnClickListener {
+            tareaEdit.titulo = ""
+            tareaEdit.descripcion = ""
+
+            tareaEdit.titulo = binding.etTitulo.text.toString()
+            tareaEdit.descripcion = binding.etDescripcion.text.toString()
+
+            viewModel.actualizarTarea(tareaEdit)
+
+            adapter.notifyDataSetChanged()
+
+            binding.etTitulo.setText("")
+            binding.etDescripcion.setText("")
+        }
+    }
+
+    private fun setupRecyclerView(listaTareas: List<Tarea>) {
+        adapter = TareaAdapter(listaTareas, ::borrarTarea, ::actualizarTarea)
+        binding.rvTareas.adapter = adapter
+    }
+
+    fun borrarTarea(id: String) {
+        viewModel.borrarTarea(id)
+    }
+
+    fun actualizarTarea(tarea: Tarea) {
+        tareaEdit = tarea
+
+        binding.etTitulo.setText(tareaEdit.titulo)
+        binding.etDescripcion.setText(tareaEdit.descripcion)
     }
 }
