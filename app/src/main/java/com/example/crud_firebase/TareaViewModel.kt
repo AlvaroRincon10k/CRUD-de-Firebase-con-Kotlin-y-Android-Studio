@@ -59,4 +59,14 @@ class TareaViewModel : ViewModel() {
         }
     }
 
+    fun borrarTarea(id: String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                db.collection("tareas").document(id).delete().await()
+                _listaTareas.postValue(_listaTareas.value?.filter { it.id != id })
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
 }
