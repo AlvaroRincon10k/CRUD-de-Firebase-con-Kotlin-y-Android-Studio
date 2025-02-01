@@ -6,59 +6,95 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:padding="16dp"
+    tools:context=".MainActivity"
+    android:background="#F5F5F5">
 
+    <!-- Título -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="8dp"
         android:text="TAREAS"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:textColor="#333333"
+        android:fontFamily="sans-serif-medium"
+        android:paddingBottom="16dp"/>
 
+    <!-- Campo de Titulo -->
     <EditText
         android:id="@+id/etTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Titulo" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Título"
+        android:padding="12dp"
+        android:backgroundTint="#B3B3B3"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
 
+    <!-- Campo de Descripción -->
     <EditText
         android:id="@+id/etDescripcion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:hint="Descripcion" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Descripción"
+        android:padding="12dp"
+        android:backgroundTint="#B3B3B3"
+        android:textColor="#333333"
+        android:textSize="16sp"
+        android:layout_gravity="center"/>
 
+    <!-- Botones -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="16dp">
 
         <Button
             android:id="@+id/btnAgregarTarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Agregar Tarea" />
+            android:text="Agregar Tarea"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:textSize="16sp"
+            android:layout_gravity="center"/>
 
         <Button
             android:id="@+id/btnActualizarTarea"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:text="Actualizar Tarea" />
+            android:text="Actualizar Tarea"
+            android:backgroundTint="#FF9800"
+            android:textColor="#FFFFFF"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:textSize="16sp"
+            android:layout_gravity="center"/>
 
     </LinearLayout>
 
+    <!-- RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTareas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="8dp"
         android:padding="8dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_rv_tarea" />
+        tools:listitem="@layout/item_rv_tarea"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>
